@@ -19,6 +19,11 @@ public class MenuBase {
      * 一级菜单数组，个数应为1~3个
      */
     private List<MenuButton> button;
+    /**
+     * 二级菜单数组，个数应为1~5个
+     * (该属性在查询菜单时存在于一级菜单内配置的button属性中)
+     */
+    private List<MenuButton> list;
 
 
     /*
