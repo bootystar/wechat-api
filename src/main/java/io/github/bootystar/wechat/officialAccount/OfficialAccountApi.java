@@ -1,12 +1,17 @@
 package io.github.bootystar.wechat.officialAccount;
 
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
+import io.github.bootystar.tool.HttpTool;
 import io.github.bootystar.wechat.core.ApiBase;
 import io.github.bootystar.wechat.core.ResponseBase;
+import io.github.bootystar.wechat.core.exception.ResponseException;
 import io.github.bootystar.wechat.officialAccount.module.message.MessageApi;
 import io.github.bootystar.wechat.officialAccount.module.message.ResponseIndustry;
 import io.github.bootystar.wechat.officialAccount.module.menu.MenuBase;
 import io.github.bootystar.wechat.officialAccount.module.menu.MenuApi;
 import io.github.bootystar.wechat.officialAccount.module.menu.ResponseMenuQuery;
+import io.github.bootystar.wechat.officialAccount.module.message.ResponseTemplateMessage;
 import io.github.bootystar.wechat.officialAccount.module.openApi.OpenApi;
 import io.github.bootystar.wechat.officialAccount.module.openApi.ResponseQueryQuota;
 import io.github.bootystar.wechat.officialAccount.module.openApi.ResponseQueryRid;
@@ -15,6 +20,9 @@ import io.github.bootystar.wechat.officialAccount.module.web.UserAccessToken;
 import io.github.bootystar.wechat.officialAccount.module.web.UserInfo;
 import io.github.bootystar.wechat.officialAccount.module.web.WebApi;
 import lombok.SneakyThrows;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -251,11 +259,109 @@ public class OfficialAccountApi extends ApiBase {
         return MessageApi.getIndustry(getTokenValue());
     }
 
+    /**
+     * 设置所属行业
+     *
+     * @param id1         主行业id
+     * @param id2         副行业id
+     * @return {@code ResponseBase }
+     * @author booty
+     *
+     */
+    public ResponseBase setIndustry(Integer id1,Integer id2){
+        return MessageApi.setIndustry(getTokenValue(), id1, id2);
+    }
+
+
+    /**
+     * 获得模板ID
+     * 从行业模板库选择模板到账号后台，获得模板ID的过程可在微信公众平台后台完成
+     * 该方法仅返回id字段
+     *
+     * @param accessToken 访问令牌
+     * @param shortId     模板库中模板的编号，有“TM**”和“OPENTMTM**”等形式,对于类目模板，为纯数字ID
+     * @param keywords    选用的类目模板的关键词,按顺序传入,如果为空，或者关键词不在模板库中，会返回40246错误码
+     * @return {@code ResponseBase }
+     * @author booty
+     */
+    public ResponseTemplateMessage addTemplate(String shortId,String... keywords){
+        return MessageApi.addTemplate(getTokenValue(), shortId,keywords);
+    }
+
+
+    /**
+     * 得到所有模板列表
+     * 该方法仅返回template_list字段
+     *
+     * @return {@code Templates }
+     * @author booty
+     *
+     */
+    public ResponseTemplateMessage getAllPrivateTemplate(){
+        return MessageApi.getAllPrivateTemplate(getTokenValue());
+    }
 
 
 
+    /**
+     * 删除模板
+     *
+     * @param templateId  模板id
+     * @return {@code ResponseBase }
+     * @author booty
+     *
+     */
+    public ResponseBase deleteTemplate(String templateId){
+        return MessageApi.deleteTemplate(getTokenValue(), templateId);
+    }
+
+    /**
+     * 获取消息发送体(历史模板)
+     *
+     *
+     * @param openId              打开id
+     * @param templateId          模板id
+     * @param url                 url
+     * @param miniProgramOpenId   小程序打开id
+     * @param miniProgramPagePath 小程序页面路径
+     * @param clientMsgId         客户端消息id
+     * @param keywords            关键词
+     * @return {@link Map }<{@link ? },{@link ? }>
+     * @author booty
+     */
+    public static Map<?,?> getMessageSendBody4History(String openId, String templateId, String url, String miniProgramOpenId, String miniProgramPagePath, String clientMsgId, String... keywords){
+        return MessageApi.getSendBody(openId, templateId, url, miniProgramOpenId, miniProgramPagePath, clientMsgId, keywords);
+    }
 
 
+    /**
+     * 获取消息发送体(类目模板)
+     *
+     * @param openId              打开id
+     * @param templateId          模板id
+     * @param url                 url
+     * @param miniProgramOpenId   小程序打开id
+     * @param miniProgramPagePath 小程序页面路径
+     * @param clientMsgId         客户端消息id
+     * @param keywordMap          关键字地图
+     * @return {@link Map }<{@link ? },{@link ? }>
+     * @author booty
+     */
+    public static Map<?,?> getMessageSendBody4Template(String openId,String templateId, String url,String miniProgramOpenId,String miniProgramPagePath, String clientMsgId,  Map<?, ?> keywordMap){
+        return MessageApi.getSendBody(openId, templateId, url, miniProgramOpenId, miniProgramPagePath, clientMsgId, keywordMap);
+    }
 
+
+    /**
+     * 通过map发送模板消息
+     *
+     * @param params      完整消息体
+     * @return {@code ResponseBase }
+     * @author booty
+     *
+     */
+    public ResponseBase sendMsgByMap(Map<?,?> params){
+        return MessageApi.sendMsgByMap(getTokenValue(), params);
+    }
 
 }

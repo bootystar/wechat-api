@@ -91,18 +91,20 @@ public class MessageApi {
 
     /**
      * 获得模板ID
+     * 从行业模板库选择模板到账号后台，获得模板ID的过程可在微信公众平台后台完成
      * 该方法仅返回id字段
      *
      * @param accessToken 访问令牌
-     * @param shortId     短id
+     * @param shortId     模板库中模板的编号，有“TM**”和“OPENTMTM**”等形式,对于类目模板，为纯数字ID
+     * @param keywords    选用的类目模板的关键词,按顺序传入,如果为空，或者关键词不在模板库中，会返回40246错误码
      * @return {@code ResponseBase }
      * @author booty
-     * 
      */
-    public static ResponseTemplateMessage addTemplate(String accessToken, String shortId){
+    public static ResponseTemplateMessage addTemplate(String accessToken, String shortId,String... keywords){
         String url = POST_JSON_ADD_TEMPLATE.replace("ACCESS_TOKEN", accessToken);
         JSONObject json = new JSONObject();
         json.put("template_id_short",shortId);
+        json.put("keyword_name_list",keywords);
         String result = HttpTool.doPostJson(url,json.toJSONString());
         ResponseTemplateMessage response = JSON.parseObject(result, ResponseTemplateMessage.class);
         if (response.getErrcode()!=null && response.getErrcode()!=0){
@@ -329,7 +331,7 @@ public class MessageApi {
     /**
      * 模板消息发送url
      */
-    private static final String POST_JSON_SEND_TEMPLATE ="https://api.weixin.qq.com/cgi-bin/template/del_private_template?access_token=ACCESS_TOKEN";
+    private static final String POST_JSON_SEND_TEMPLATE ="https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=ACCESS_TOKEN";
 
     /**
      * 通过map发送模板消息
