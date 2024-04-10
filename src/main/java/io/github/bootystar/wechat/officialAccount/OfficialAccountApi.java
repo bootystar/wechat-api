@@ -1,27 +1,22 @@
 package io.github.bootystar.wechat.officialAccount;
 
-import com.alibaba.fastjson2.JSON;
-import com.alibaba.fastjson2.JSONObject;
-import io.github.bootystar.tool.HttpTool;
 import io.github.bootystar.wechat.core.ApiBase;
 import io.github.bootystar.wechat.core.ResponseBase;
-import io.github.bootystar.wechat.core.exception.ResponseException;
+import io.github.bootystar.wechat.officialAccount.enums.CgiPathEnum;
+import io.github.bootystar.wechat.officialAccount.module.menu.MenuApi;
+import io.github.bootystar.wechat.officialAccount.module.menu.MenuBase;
+import io.github.bootystar.wechat.officialAccount.module.menu.ResponseMenuQuery;
 import io.github.bootystar.wechat.officialAccount.module.message.MessageApi;
 import io.github.bootystar.wechat.officialAccount.module.message.ResponseIndustry;
-import io.github.bootystar.wechat.officialAccount.module.menu.MenuBase;
-import io.github.bootystar.wechat.officialAccount.module.menu.MenuApi;
-import io.github.bootystar.wechat.officialAccount.module.menu.ResponseMenuQuery;
 import io.github.bootystar.wechat.officialAccount.module.message.ResponseTemplateMessage;
 import io.github.bootystar.wechat.officialAccount.module.openApi.OpenApi;
 import io.github.bootystar.wechat.officialAccount.module.openApi.ResponseQueryQuota;
 import io.github.bootystar.wechat.officialAccount.module.openApi.ResponseQueryRid;
-import io.github.bootystar.wechat.officialAccount.enums.CgiPathEnum;
 import io.github.bootystar.wechat.officialAccount.module.web.UserAccessToken;
 import io.github.bootystar.wechat.officialAccount.module.web.UserInfo;
 import io.github.bootystar.wechat.officialAccount.module.web.WebApi;
 import lombok.SneakyThrows;
 
-import java.util.HashMap;
 import java.util.Map;
 
 
@@ -278,7 +273,6 @@ public class OfficialAccountApi extends ApiBase {
      * 从行业模板库选择模板到账号后台，获得模板ID的过程可在微信公众平台后台完成
      * 该方法仅返回id字段
      *
-     * @param accessToken 访问令牌
      * @param shortId     模板库中模板的编号，有“TM**”和“OPENTMTM**”等形式,对于类目模板，为纯数字ID
      * @param keywords    选用的类目模板的关键词,按顺序传入,如果为空，或者关键词不在模板库中，会返回40246错误码
      * @return {@code ResponseBase }
