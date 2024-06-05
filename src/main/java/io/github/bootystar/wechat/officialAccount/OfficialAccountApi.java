@@ -148,7 +148,7 @@ public class OfficialAccountApi extends ApiBase {
      * 
      */
     public boolean clearQuotaByAccessToken(){
-        ResponseBase responseBase = OpenApi.clearQuotaByAccessToken(getAppId(), getTokenValue());
+        ResponseBase responseBase = OpenApi.clearQuotaByAccessToken(getAppId(), getAccessTokenValue());
         return responseBase.getErrcode()==0;
     }
 
@@ -175,7 +175,7 @@ public class OfficialAccountApi extends ApiBase {
      * 
      */
     public ResponseQueryQuota queryQuota(CgiPathEnum pathEnum){
-        return OpenApi.queryQuota(getTokenValue(),pathEnum.url);
+        return OpenApi.queryQuota(getAccessTokenValue(),pathEnum.url);
     }
 
 
@@ -188,7 +188,7 @@ public class OfficialAccountApi extends ApiBase {
      * 
      */
     public ResponseQueryQuota queryQuota(String cgiPath){
-        return OpenApi.queryQuota(getTokenValue(),cgiPath);
+        return OpenApi.queryQuota(getAccessTokenValue(),cgiPath);
     }
 
 
@@ -201,7 +201,7 @@ public class OfficialAccountApi extends ApiBase {
      * 
      */
     public ResponseQueryRid queryRid(String rid){
-        return OpenApi.queryRid(getTokenValue(),rid);
+        return OpenApi.queryRid(getAccessTokenValue(),rid);
     }
 
 
@@ -214,7 +214,7 @@ public class OfficialAccountApi extends ApiBase {
      * 
      */
     public ResponseBase adjustMenu(MenuBase menu){
-        return MenuApi.createMenu(getTokenValue(), menu);
+        return MenuApi.createMenu(getAccessTokenValue(), menu);
     }
 
 
@@ -226,7 +226,7 @@ public class OfficialAccountApi extends ApiBase {
      * 
      */
     public ResponseMenuQuery queryMenu(){
-        return MenuApi.queryMenu(getTokenValue());
+        return MenuApi.queryMenu(getAccessTokenValue());
     }
 
 
@@ -238,7 +238,7 @@ public class OfficialAccountApi extends ApiBase {
      * 
      */
     public ResponseBase deleteMenu(){
-        return MenuApi.deleteMenu(getTokenValue());
+        return MenuApi.deleteMenu(getAccessTokenValue());
     }
 
 
@@ -251,7 +251,7 @@ public class OfficialAccountApi extends ApiBase {
      * 
      */
     public ResponseIndustry getIndustry(){
-        return MessageApi.getIndustry(getTokenValue());
+        return MessageApi.getIndustry(getAccessTokenValue());
     }
 
     /**
@@ -264,7 +264,7 @@ public class OfficialAccountApi extends ApiBase {
      *
      */
     public ResponseBase setIndustry(Integer id1,Integer id2){
-        return MessageApi.setIndustry(getTokenValue(), id1, id2);
+        return MessageApi.setIndustry(getAccessTokenValue(), id1, id2);
     }
 
 
@@ -279,7 +279,7 @@ public class OfficialAccountApi extends ApiBase {
      * @author booty
      */
     public ResponseTemplateMessage addTemplate(String shortId,String... keywords){
-        return MessageApi.addTemplate(getTokenValue(), shortId,keywords);
+        return MessageApi.addTemplate(getAccessTokenValue(), shortId,keywords);
     }
 
 
@@ -292,7 +292,7 @@ public class OfficialAccountApi extends ApiBase {
      *
      */
     public ResponseTemplateMessage getAllPrivateTemplate(){
-        return MessageApi.getAllPrivateTemplate(getTokenValue());
+        return MessageApi.getAllPrivateTemplate(getAccessTokenValue());
     }
 
 
@@ -306,7 +306,7 @@ public class OfficialAccountApi extends ApiBase {
      *
      */
     public ResponseBase deleteTemplate(String templateId){
-        return MessageApi.deleteTemplate(getTokenValue(), templateId);
+        return MessageApi.deleteTemplate(getAccessTokenValue(), templateId);
     }
 
     /**
@@ -355,7 +355,7 @@ public class OfficialAccountApi extends ApiBase {
      *
      */
     public ResponseBase sendMsgByMap(Map<?,?> params){
-        return MessageApi.sendMsgByMap(getTokenValue(), params);
+        return MessageApi.sendMsgByMap(getAccessTokenValue(), params);
     }
 
 }

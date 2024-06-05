@@ -1,19 +1,24 @@
-package io.github.bootystar.wechat.miniProgram.entity;
+package io.github.bootystar.wechat.miniProgram.module.msg;
 
 import lombok.Data;
 
 /**
- * @author booty
- * 
+ * @Author booty
+ * @Date 2023/6/15 11:02
  */
 @Data
-public class MsgSecCheckBody {
+public class MediaCheckBody {
 
     /**
      * @required
      * 需检测的文本内容，文本字数的上限为2500字，需使用UTF-8编码
      */
-    private String content;
+    private String media_url;
+    /**
+     * @required
+     * 1:音频;2:图片
+     */
+    private Integer media_type;
 
     /**
      * @required
@@ -30,16 +35,6 @@ public class MsgSecCheckBody {
      * 用户的openid（用户需在近两小时访问过小程序）
      */
     private String openid;
-    /**
-     * 文本标题，需使用UTF-8编码
-     */
-    private String title;
-    /**
-     * 用户昵称，需使用UTF-8编码
-     */
-    private String nickname;
-    /**
-     * 个性签名，该参数仅在资料类场景有效(scene=1)，需使用UTF-8编码
-     */
-    private String signature;
+
+
 }

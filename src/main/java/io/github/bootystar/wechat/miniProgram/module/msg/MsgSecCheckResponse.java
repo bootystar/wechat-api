@@ -1,4 +1,4 @@
-package io.github.bootystar.wechat.miniProgram.entity;
+package io.github.bootystar.wechat.miniProgram.module.msg;
 
 
 import io.github.bootystar.wechat.core.ResponseBase;

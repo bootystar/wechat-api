@@ -5,6 +5,8 @@ import io.github.bootystar.wechat.core.token.AccessTokenFactory;
 import io.github.bootystar.wechat.core.token.StableAccessTokenFactory;
 import io.github.bootystar.wechat.core.token.factory.DefaultAccessTokenFactory;
 import io.github.bootystar.wechat.core.token.factory.DefaultStableAccessTokenFactory;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * 基础api
@@ -14,11 +16,15 @@ import io.github.bootystar.wechat.core.token.factory.DefaultStableAccessTokenFac
 public class ApiBase {
 
 
-    private final String appId;
-    private final String appSecret;
-    private AccessTokenFactory tokenFactory;
-    private StableAccessTokenFactory stableTokenFactory;
-    private boolean stableToken=true;
+    @Getter
+    protected final String appId;
+    protected final String appSecret;
+    protected AccessTokenFactory tokenFactory;
+    @Setter
+    protected StableAccessTokenFactory stableTokenFactory;
+    @Setter
+    @Getter
+    protected boolean stableToken=true;
 
 
 
@@ -29,10 +35,6 @@ public class ApiBase {
         this.stableTokenFactory=new DefaultStableAccessTokenFactory(appId,appSecret);
     }
 
-    public String getAppId() {
-        return appId;
-    }
-
     protected String getAppSecret() {
         return appSecret;
     }
@@ -41,18 +43,6 @@ public class ApiBase {
         this.tokenFactory = tokenFactory;
     }
 
-    public void setStableTokenFactory(StableAccessTokenFactory stableTokenFactory) {
-        this.stableTokenFactory = stableTokenFactory;
-    }
-
-
-    public boolean isStableToken() {
-        return stableToken;
-    }
-
-    public void setStableToken(boolean stableToken) {
-        this.stableToken = stableToken;
-    }
 
     /**
      * 获取授权令牌的值
@@ -60,10 +50,7 @@ public class ApiBase {
      * @author booty
      *
      */
-    public String getTokenValue() {
-        if(stableToken){
-            getStableAccessToken().getAccess_token();
-        }
+    public String getAccessTokenValue() {
         return getAccessToken().getAccess_token();
     }
 
@@ -75,19 +62,10 @@ public class ApiBase {
      *
      */
     public AccessToken getAccessToken(){
+        if(stableToken){
+            return stableTokenFactory.getStableAccessToken();
+        }
         return tokenFactory.getAccessToken();
-    }
-
-    /**
-     * 获取稳定访问令牌
-     * 与获取Access token获取的调用凭证完全隔离，互不影响。
-     *
-     * @return {@link AccessToken }
-     * @author booty
-     *
-     */
-    public AccessToken getStableAccessToken() {
-        return stableTokenFactory.getStableAccessToken();
     }
 
 

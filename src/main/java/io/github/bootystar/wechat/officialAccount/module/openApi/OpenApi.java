@@ -42,7 +42,9 @@ public class OpenApi {
         jsonObject.put("appid",appId);
         String body = jsonObject.toJSONString();
         String result = HttpTool.doPostJson(url, body);
-        return JSON.parseObject(result, ResponseBase.class);
+        ResponseBase response = JSON.parseObject(result, ResponseBase.class);
+        response.check();
+        return response;
     }
 
     /**
@@ -71,7 +73,9 @@ public class OpenApi {
     public static ResponseBase clearQuotaByAppSecret(String appId, String appSecret){
         String url = POST_CLEAR_QUOTA_V2_URL.replace("APPID", appId).replace("APPSECRET", appSecret);
         String result = HttpTool.doPostForm(POST_CLEAR_QUOTA_V2_URL,null);
-        return JSON.parseObject(result, ResponseBase.class);
+        ResponseBase response = JSON.parseObject(result, ResponseBase.class);
+        response.check();
+        return response;
     }
 
 
@@ -115,11 +119,9 @@ public class OpenApi {
             "remain": 0}
         }
          */
-        ResponseQueryQuota queryQuota = JSON.parseObject(result, ResponseQueryQuota.class);
-        if (queryQuota.getErrcode()!=null && queryQuota.getErrcode()!=0){
-            throw new ResponseException(queryQuota);
-        }
-        return queryQuota;
+        ResponseQueryQuota response = JSON.parseObject(result, ResponseQueryQuota.class);
+        response.check();
+        return response;
     }
 
 
@@ -155,11 +157,9 @@ public class OpenApi {
               }
           }
          */
-        ResponseQueryRid ridEntity = JSON.parseObject(result, ResponseQueryRid.class);
-        if (ridEntity.getErrcode()!=null && ridEntity.getErrcode()!=0){
-            throw new ResponseException(ridEntity);
-        }
-        return ridEntity;
+        ResponseQueryRid response = JSON.parseObject(result, ResponseQueryRid.class);
+        response.check();
+        return response;
     }
 
 

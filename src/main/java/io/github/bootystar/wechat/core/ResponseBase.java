@@ -1,6 +1,9 @@
 package io.github.bootystar.wechat.core;
 
 
+import io.github.bootystar.wechat.core.exception.ResponseException;
+import lombok.Data;
+
 import java.io.Serializable;
 
 /**
@@ -8,25 +11,16 @@ import java.io.Serializable;
  * @author booty
  *
  */
+@Data
 public class ResponseBase implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Integer errcode;
     private String errmsg;
 
-    public Integer getErrcode() {
-        return errcode;
-    }
-
-    public void setErrcode(Integer errcode) {
-        this.errcode = errcode;
-    }
-
-    public String getErrmsg() {
-        return errmsg;
-    }
-
-    public void setErrmsg(String errmsg) {
-        this.errmsg = errmsg;
+    public void check(){
+        if (getErrcode()!=null && getErrcode()!=0){
+            throw new ResponseException(this);
+        }
     }
 }

@@ -34,11 +34,9 @@ public class MenuApi {
         String json = JSON.toJSONString(menuCreate);
         String url = POST_JSON_CREATE_MENU_URL.replace("ACCESS_TOKEN", accessToken);
         String result = HttpTool.doPostJson(url, json);
-        ResponseBase responseBase = JSON.parseObject(result, ResponseBase.class);
-        if (responseBase.getErrcode()!=null && responseBase.getErrcode()!=0){
-            throw new ResponseException(responseBase);
-        }
-        return responseBase;
+        ResponseBase response = JSON.parseObject(result, ResponseBase.class);
+        response.check();
+        return response;
     }
 
     /**
@@ -58,11 +56,9 @@ public class MenuApi {
     public static ResponseMenuQuery queryMenu(String accessToken){
         String url = GET_QUERY_MENU_URL.replace("ACCESS_TOKEN", accessToken);
         String result = HttpTool.doGet(url);
-        ResponseMenuQuery responseBase = JSON.parseObject(result, ResponseMenuQuery.class);
-        if (responseBase.getErrcode()!=null && responseBase.getErrcode()!=0){
-            throw new ResponseException(responseBase);
-        }
-        return responseBase;
+        ResponseMenuQuery response = JSON.parseObject(result, ResponseMenuQuery.class);
+        response.check();
+        return response;
     }
 
     /**
@@ -73,11 +69,9 @@ public class MenuApi {
     public static ResponseBase deleteMenu(String accessToken){
         String url = GET_DELETE_MENU_URL.replace("ACCESS_TOKEN", accessToken);
         String result = HttpTool.doGet(url);
-        ResponseMenuQuery responseBase = JSON.parseObject(result, ResponseMenuQuery.class);
-        if (responseBase.getErrcode()!=null && responseBase.getErrcode()!=0){
-            throw new ResponseException(responseBase);
-        }
-        return responseBase;
+        ResponseMenuQuery response = JSON.parseObject(result, ResponseMenuQuery.class);
+        response.check();
+        return response;
     }
 
 

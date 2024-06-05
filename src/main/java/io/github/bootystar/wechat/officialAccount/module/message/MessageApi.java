@@ -42,9 +42,7 @@ public class MessageApi {
         json.put("industry_id2",id2);
         String result = HttpTool.doPostJson(url,json.toJSONString());
         ResponseBase response = JSON.parseObject(result, ResponseBase.class);
-        if (response.getErrcode()!=null && response.getErrcode()!=0){
-            throw new ResponseException(response);
-        }
+        response.check();
         return response;
     }
 
@@ -70,9 +68,7 @@ public class MessageApi {
         */
 
         ResponseIndustry response = JSON.parseObject(result, ResponseIndustry.class);
-        if (response.getErrcode()!=null && response.getErrcode()!=0){
-            throw new ResponseException(response);
-        }
+        response.check();
         return response;
     }
 
@@ -107,9 +103,7 @@ public class MessageApi {
         json.put("keyword_name_list",keywords);
         String result = HttpTool.doPostJson(url,json.toJSONString());
         ResponseTemplateMessage response = JSON.parseObject(result, ResponseTemplateMessage.class);
-        if (response.getErrcode()!=null && response.getErrcode()!=0){
-            throw new ResponseException(response);
-        }
+        response.check();
         return response;
     }
 
@@ -129,9 +123,7 @@ public class MessageApi {
         String url = GET_DELETE_TEMPLATE.replace("ACCESS_TOKEN", accessToken);
         String result = HttpTool.doGet(url);
         ResponseTemplateMessage response = JSON.parseObject(result, ResponseTemplateMessage.class);
-        if (response.getErrcode()!=null && response.getErrcode()!=0){
-            throw new ResponseException(response);
-        }
+        response.check();
         return response;
     }
 
@@ -154,9 +146,7 @@ public class MessageApi {
         json.put("template_id",templateId);
         String result = HttpTool.doPostJson(url,json.toJSONString());
         ResponseBase response = JSON.parseObject(result, ResponseBase.class);
-        if (response.getErrcode()!=null && response.getErrcode()!=0){
-            throw new ResponseException(response);
-        }
+        response.check();
         return response;
     }
 
@@ -346,9 +336,7 @@ public class MessageApi {
         String url = POST_JSON_SEND_TEMPLATE.replace("ACCESS_TOKEN", accessToken);
         String result = HttpTool.doPostJson(url,JSON.toJSONString(params));
         ResponseBase response = JSON.parseObject(result, ResponseBase.class);
-        if (response.getErrcode()!=null && response.getErrcode()!=0){
-            throw new ResponseException(response);
-        }
+        response.check();
         return response;
     }
 
